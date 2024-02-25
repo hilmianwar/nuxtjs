@@ -3,21 +3,18 @@ import type { InputSearch } from '#build/components'; import { ref } from 'vue'
 const search = ref("");
 const router = useRouter();
 
-const handleSearch = () => {
+const handleSearch = (e) => {
   if (search.value) {
-    router.push(`/search/${search.value}`);
+    if (e.key === "Enter" || e.type === "click") {
+      router.push(`/search/${search.value}`);
+    }
   }
 };
-
-// const handleSearch = async (search) => {
-//   const response = await axios.get(
-//     `https://api.mudoapi.tech/menus?perPage=10&page=1&name=${search}&type=`
-//   );
-// };
 </script>
 
 <template>
   <input
+    @keydown="handleSearch"
     v-model="search"
     class="p-1 rounded-md absolute right-10 outline-none px-2"
   />
