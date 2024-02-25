@@ -16,6 +16,18 @@ const toggleEditForm = (id) => {
 const toggleAddForm = () => {
   showAddForm.value = !showAddForm.value;
 };
+const handleDelete = async (id) => {
+  const token = localStorage.getItem("token");
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  try {
+    const response = await axios.delete(
+      `https://api.mudoapi.tech/menu/${id}`,
+      config
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
@@ -66,7 +78,7 @@ const toggleAddForm = () => {
                   />
                 </svg>
               </button>
-              <button>
+              <button @click="handleDelete(data.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
